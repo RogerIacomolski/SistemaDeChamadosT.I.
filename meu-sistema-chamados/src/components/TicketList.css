@@ -1,0 +1,39 @@
+/* --- 8. Mensagens de Feedback da Lista (Loading, Erro, Vazio) --- */
+
+/* 1. Estilo base comum para todas as mensagens de status */
+/* (Usamos o estilo que você já tinha para .ticket-list-empty como base) */
+.loading-text,
+.error-text,
+.ticket-list-empty {
+  text-align: center;
+  padding: 3rem 1.5rem; /* Padding generoso para centralizar */
+  margin: 0; /* Remove margem padrão do <p> */
+  font-size: 0.95rem;
+}
+
+/* 2. Estilo para "Carregando" e "Vazio" (sutis) */
+.loading-text,
+.ticket-list-empty {
+  color: var(--cor-texto-claro, #8a92a6);
+  font-style: italic; /* Itálico passa uma sensação de estado "quieto" */
+}
+
+/* 3. Estilo de "Erro" (com destaque) */
+.error-text {
+  /* Cor de perigo (vermelho mais escuro e profissional) */
+  color: #c9302c; 
+  /* (Idealmente, use uma variável: var(--cor-perigo)) */
+  
+  font-weight: 500; /* Mais ênfase para o erro */
+  font-style: normal; /* Erros devem ser claros, não em itálico */
+  
+  /* Um fundo sutil para destacar o bloco de erro */
+  background-color: #fdf7f7; 
+  
+  /* Para o fundo sutil funcionar bem, ajustamos o padding e 
+     adicionamos margem e borda */
+  padding: 2rem 1.5rem; 
+  margin: 1.5rem;
+  border: 1px solid #f5c6c4; /* Borda no tom do perigo */
+  border-radius: var(--raio-borda, 8px);
+}

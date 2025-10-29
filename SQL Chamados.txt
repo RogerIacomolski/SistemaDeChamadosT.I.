@@ -1,0 +1,50 @@
+CREATE TABLE `chamados` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `descricao` text,
+  `categoria` varchar(100) DEFAULT NULL,
+  `empresa` enum('Engebag','Bag Cleaner') DEFAULT NULL,
+  `criticidade` enum('Alta','Média','Baixa') NOT NULL DEFAULT 'Baixa',
+  `anexo_url` varchar(255) DEFAULT NULL,
+  `anexo_nome` varchar(255) DEFAULT NULL,
+  `status` enum('aberto','em_andamento','fechado') NOT NULL DEFAULT 'aberto',
+  `notificacao_usuario` enum('nenhuma','nova') DEFAULT 'nenhuma',
+  `notificacao_admin` enum('nenhuma','nova') DEFAULT 'nenhuma',
+  `data_abertura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_fechamento` timestamp NULL DEFAULT NULL,
+  `id_usuario_abriu` int(11) NOT NULL,
+  `id_tecnico_atribuido` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `chat_mensagens` (
+  `id` int(11) NOT NULL,
+  `id_chamado` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `mensagem` text NOT NULL,
+  `tipo_mensagem` enum('texto','arquivo') NOT NULL DEFAULT 'texto',
+  `url_arquivo` varchar(255) DEFAULT NULL,
+  `nome_original_arquivo` varchar(255) DEFAULT NULL,
+  `data_envio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE `departamentos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipo` enum('admin','comum') NOT NULL DEFAULT 'comum',
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `senha_temporaria` tinyint(1) DEFAULT '0',
+  `departamento` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

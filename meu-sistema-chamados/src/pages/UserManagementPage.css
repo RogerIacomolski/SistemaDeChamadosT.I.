@@ -1,0 +1,315 @@
+/* src/pages/UserManagementPage.css */
+
+/* 1. Wrapper da Tabela (para overflow em telas pequenas) */
+.admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Adiciona scroll horizontal se a tabela for muito larga */
+  }
+  
+  /* 2. Estilo da Tabela */
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaço entre células */
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 1rem 1.5rem; /* Ajuste no padding */
+    text-align: left;
+    border-bottom: 1px solid var(--cor-borda, #e2e8f0);
+    vertical-align: middle;
+    color: var(--cor-texto-secundario, #4a5568);
+    font-size: 0.9rem;
+    white-space: nowrap; /* Evita que o texto quebre linha */
+  }
+  
+  /* Cabeçalho da Tabela */
+  .admin-table th {
+    background-color: var(--cor-fundo, #f8f9fa);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--cor-texto-claro, #718096);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--cor-borda, #e2e8f0);
+  }
+  
+  /* Remove a borda superior do <thead> e a inferior do <tbody> */
+  .admin-table thead th {
+    border-top: none;
+  }
+  .admin-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .admin-table tbody tr:hover {
+    background-color: var(--cor-fundo, #f8f9fa);
+  }
+  
+  /* 3. Célula de Ações */
+  .actions-cell {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* 4. Botão Amarelo (Novo) */
+  /* (O .btn-secondary já vem do Dashboard.css) */
+  .btn-warning {
+    /* Usa a base .btn do Dashboard.css */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--raio-borda, 6px);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    
+    /* Cores específicas */
+    background-color: var(--cor-status-andamento-bg, #feebc8);
+    color: var(--cor-status-andamento-texto, #744210);
+  }
+  .btn-warning:hover {
+    background-color: #f6ad55; /* Cor principal do status andamento */
+    color: var(--cor-texto-branco, #fff);
+  }
+  
+  
+  /* 5. Badges (Admin/Comum) */
+  .badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .badge-admin {
+    background-color: var(--cor-status-fechado-bg, #c6f6d5);
+    color: var(--cor-status-fechado-texto, #22543d);
+  }
+  .badge-comum {
+    background-color: var(--cor-status-fechado-bg, #e2e8f0);
+    color: var(--cor-status-fechado-texto, #4a5568);
+  }
+  
+  /* 6. Alertas e Loading (Reutilizando classes do Dashboard) */
+  .loading-text {
+    padding: 3rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--cor-texto-claro, #718096);
+  }
+  
+  /* (As classes .alert já vêm do seu Dashboard.css) */
+  /* Se não vierem, descomente isto */
+  /*
+  .alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid transparent;
+  }
+  .alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+  }
+  .alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+  }
+  .modal-error {
+    margin-top: 1rem;
+  }
+  */
+
+  /* src/pages/UserManagementPage.css */
+
+/* ... (seu CSS existente da tabela, badges, etc.) ... */
+
+/* src/pages/Dashboard.css */
+
+/* ... (Todo o seu CSS anterior: :root, sidebar, kpis, etc.) ... */
+
+
+/* --- ESTILOS ESSENCIAIS PARA POSICIONAMENTO DO REACT-MODAL --- */
+
+.modal-backdrop {
+    position: fixed; /* Fica fixo na tela */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65); /* Fundo escuro semi-transparente */
+    display: flex; /* USA FLEXBOX PARA CENTRALIZAR */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    z-index: 1050; /* Garante que fique acima de outros elementos */
+    opacity: 0; /* Começa invisível para animação */
+    transition: opacity 0.2s ease-in-out; /* Animação suave de fade-in */
+  }
+  
+  /* Estilo do backdrop quando o modal está aberto (adicionado pelo react-modal) */
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  /* Estilo do backdrop antes de fechar (adicionado pelo react-modal) */
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+  
+  
+  .modal-content {
+    position: relative; /* Necessário para alguns posicionamentos internos */
+    background: var(--cor-fundo-content, #ffffff);
+    border-radius: var(--raio-borda-lg, 12px); /* Borda arredondada */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
+    padding: 0; /* Padding será controlado por .modal-header, .modal-body, .modal-footer */
+    border: none;
+    max-height: 90vh; /* Limita altura */
+    width: 90%; /* Largura em telas pequenas */
+    display: flex; /* Permite que header/body/footer se organizem */
+    flex-direction: column;
+    overflow: hidden; /* Controla o scroll dentro do modal-body */
+  
+    /* Animação de entrada (opcional) */
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Estilo do content quando o modal está aberto */
+  .ReactModal__Content--after-open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  /* Estilo do content antes de fechar */
+  .ReactModal__Content--before-close {
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+  }
+  
+  /* --- ESTILOS MAIS DELICADOS E REFINADOS PARA O MODAL (Dashboard.css) --- */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo um pouco menos escuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out; /* Transição um pouco mais lenta */
+  }
+  .ReactModal__Overlay--after-open { opacity: 1; }
+  .ReactModal__Overlay--before-close { opacity: 0; }
+  
+  
+  .modal-content {
+    position: relative;
+    background: var(--cor-fundo-content, #ffffff);
+    border-radius: var(--raio-borda-lg, 10px); /* Bordas um pouco menos arredondadas */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    padding: 0;
+    border: none;
+    max-height: 90vh;
+    width: 90%; /* Mantém largura responsiva para ecrãs pequenos */
+    max-width: 500px; /* <<-- AQUI ESTÁ A CHAVE: Largura máxima reduzida para 500px */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Garante que o conteúdo não vaze */
+  
+    /* Animação de entrada mais suave */
+    transform: scale(0.98) translateY(5px);
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+  }
+  .ReactModal__Content--after-open { transform: scale(1) translateY(0); opacity: 1; }
+  .ReactModal__Content--before-close { transform: scale(0.98) translateY(5px); opacity: 0; }
+  
+  
+  /* --- ESTRUTURA INTERNA DO MODAL --- */
+  
+  .modal-header {
+    padding: 1rem 1.5rem; /* Padding reduzido */
+    border-bottom: 1px solid var(--cor-borda-clara, #f3f4f6); /* Borda mais clara */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: var(--cor-fundo-content, #ffffff);
+  }
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.2rem; /* Título um pouco menor */
+    font-weight: 600;
+    color: var(--cor-texto-principal, #1f2937);
+    line-height: 1.4;
+  }
+  
+  .modal-body {
+    padding: 1.5rem; /* Padding reduzido */
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  
+  .modal-footer {
+    padding: 0.9rem 1.5rem; /* Padding reduzido */
+    border-top: 1px solid var(--cor-borda-clara, #f3f4f6); /* Borda mais clara */
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem; /* Espaço entre botões reduzido */
+    flex-shrink: 0;
+    background-color: var(--cor-fundo, #f9fafb); /* Fundo ligeiramente diferente */
+  }
+  
+  /* Botão de fechar (X) */
+  .modal-close-btn {
+    background: none; border: none; font-size: 1.6rem; /* Tamanho do 'X' menor */
+    font-weight: 300; /* Mais leve */
+    line-height: 1; cursor: pointer; color: var(--cor-texto-claro, #9ca3af);
+    padding: 0.4rem; border-radius: 50%; transition: background-color 0.2s, color 0.2s;
+  }
+  .modal-close-btn:hover {
+    color: var(--cor-texto-principal, #1f2937); background-color: #f3f4f6;
+  }
+  
+  /* Erro dentro do modal */
+  .modal-error {
+      margin-top: 1rem;
+      margin-bottom: 0;
+  }
+  
+  /* Estilos dos botões do footer */
+  .modal-footer .btn-secondary,
+  .modal-footer .btn-primary {
+      padding: 0.5rem 1rem; /* Padding ainda mais delicado */
+      font-size: 0.875rem; /* Fonte um pouco menor */
+      border-radius: var(--raio-borda, 6px); /* Bordas mais suaves */
+      font-weight: 500; /* Menos bold */
+  }
+  .modal-footer .btn-secondary {
+      background-color: transparent; /* Fundo transparente */
+      color: var(--cor-texto-secundario, #4b5563);
+      border: 1px solid var(--cor-borda, #e5e7eb);
+      box-shadow: none; /* Remove sombra */
+  }
+  .modal-footer .btn-secondary:hover {
+      background-color: var(--cor-fundo, #f9fafb);
+      border-color: #d1d5db;
+  }
+  .modal-footer .btn-primary {
+      /* Usa as cores primárias do tema */
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Sombra mais sutil */
+  }
+  .modal-footer .btn-primary:hover {
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra um pouco maior no hover */
+      transform: translateY(-1px); /* Leve elevação */
+  }
+  
+  /* --- (Resto do seu Dashboard.css e os estilos de form-input, form-select etc.) --- */

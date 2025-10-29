@@ -1,0 +1,218 @@
+/* src/pages/ReportsPage.css */
+
+/* ============================================= */
+/* Reset Básico e Variáveis (Exemplo)   */
+/* ============================================= */
+/* É bom ter variáveis de cor/espaçamento definidas globalmente,
+   mas adicionei fallbacks aqui para garantir que funcione. */
+   :root {
+    --cor-fundo-pagina: #f8f9fa; /* Exemplo: Fundo geral levemente cinza */
+    --cor-fundo-content: #ffffff; /* Fundo dos cards */
+    --cor-texto-principal: #212529; /* Texto escuro */
+    --cor-texto-secundario: #6c757d; /* Texto mais claro/cinza */
+    --cor-borda: #dee2e6;          /* Borda sutil */
+    --cor-primaria: #0d6efd;       /* Azul (exemplo para highlights) */
+    --sombra-leve: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --raio-borda-md: 8px;
+    --raio-borda-lg: 12px;
+  }
+  
+  /* ============================================= */
+  /* Layout Principal da Página           */
+  /* ============================================= */
+  
+  .reports-grid {
+    display: grid;
+    gap: 1.75rem; /* Aumenta um pouco o espaço entre cards */
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 2rem; /* Espaço extra no final da página */
+  }
+  
+  /* ============================================= */
+  /* Estilo Base do Card             */
+  /* ============================================= */
+  
+  .report-card {
+    background-color: var(--cor-fundo-content, #ffffff);
+    border-radius: var(--raio-borda-lg, 12px); /* Bordas mais arredondadas */
+    border: 1px solid var(--cor-borda, #dee2e6); /* Borda sutil */
+    padding: 1.75rem; /* Um pouco mais de preenchimento interno */
+    box-shadow: var(--sombra-media, 0 4px 12px rgba(0, 0, 0, 0.08)); /* Sombra mais suave e definida */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transição suave */
+  }
+  
+  .report-card:hover {
+    transform: translateY(-4px); /* Eleva o card levemente */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12); /* Sombra um pouco mais pronunciada no hover */
+  }
+  
+  /* Título dentro do card */
+  .report-card h4 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.15rem; /* Ligeiramente maior */
+    font-weight: 600;
+    color: var(--cor-texto-principal, #212529);
+    /* Linha inferior mais sutil ou apenas espaçamento */
+    /* Opção 1: Linha mais leve */
+     border-bottom: 1px solid #f1f1f1;
+    /* Opção 2: Sem linha, apenas espaçamento (descomente abaixo e comente a linha acima) */
+    /* border-bottom: none; */
+    padding-bottom: 0.8rem;
+  }
+  
+  /* ============================================= */
+  /* Card de Resumo (KPIs - Indicadores)   */
+  /* ============================================= */
+  
+  .kpi-summary-card {
+    grid-column: span 2; /* Ocupa a largura toda */
+  }
+  
+  .kpi-summary-grid {
+    display: grid;
+    /* Colunas responsivas, mínimo 140px para dar mais espaço */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.75rem; /* Mais espaço entre KPIs */
+    text-align: center;
+  }
+  
+  /* Título/Label do KPI */
+  .kpi-summary-item span {
+    display: block;
+    font-size: 0.8rem; /* Um pouco menor para dar destaque ao número */
+    color: var(--cor-texto-secundario, #6c757d);
+    margin-bottom: 0.4rem; /* Mais espaço antes do número */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em; /* Espaçamento entre letras sutil */
+  }
+  
+  /* Número/Valor do KPI */
+  .kpi-summary-item strong {
+    display: block;
+    font-size: 2.25rem; /* Número bem destacado */
+    font-weight: 700; /* Ou 600 para algo menos pesado */
+    color: var(--cor-texto-principal, #212529);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Cores específicas para os status (fallbacks mais vibrantes) */
+  .kpi-summary-item .text-red {
+    color: var(--cor-status-aberto-texto, #dc3545);
+  }
+  .kpi-summary-item .text-orange {
+    color: var(--cor-status-andamento-texto, #fd7e14);
+  }
+  .kpi-summary-item .text-green {
+    color: var(--cor-status-fechado-texto, #198754);
+  }
+  
+  /* Item específico (Tempo Médio) */
+  .resolution-time {
+    grid-column: span 2; /* Mantém ocupando espaço se necessário */
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--cor-borda, #dee2e6); /* Linha tracejada mais sutil */
+  }
+  
+  /* ============================================= */
+  /* Cards de Gráfico                  */
+  /* ============================================= */
+  
+  .chart-card.wide-card {
+    grid-column: span 2;
+  }
+  
+  .chart-container {
+    position: relative;
+    min-height: 300px; /* Garante altura mínima mesmo antes do gráfico carregar */
+    width: 100%; /* Garante que o container use a largura disponível */
+  }
+  
+  /* ============================================= */
+  /* Mensagens (Erro, Loading)             */
+  /* ============================================= */
+  
+  /* Estilos podem vir do seu CSS global, mas como exemplo: */
+  .loading-text {
+    text-align: center;
+    padding: 2rem;
+    color: var(--cor-texto-secundario);
+    font-style: italic;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--raio-borda-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    grid-column: span 2; /* Ocupa a largura se estiver no grid */
+  }
+  
+  /* ============================================= */
+  /* Ajustes Responsivos             */
+  /* ============================================= */
+  
+  /* Telas médias (abaixo de 992px) */
+  @media (max-width: 991.98px) {
+    .reports-grid {
+      grid-template-columns: 1fr; /* Coluna única */
+      gap: 1.5rem;
+    }
+  
+    /* Todos os cards passam a ocupar 1 coluna */
+    .kpi-summary-card,
+    .chart-card.wide-card,
+    .resolution-time {
+      grid-column: span 1;
+    }
+  }
+  
+  /* Telas pequenas (abaixo de 768px) */
+  @media (max-width: 767.98px) {
+    .report-card {
+      padding: 1.25rem; /* Reduz um pouco o padding */
+    }
+  
+    .kpi-summary-grid {
+      /* Mínimo menor para caber mais itens por linha se possível */
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 1.25rem;
+    }
+  
+    .kpi-summary-item strong {
+      font-size: 1.8rem; /* Reduz o número do KPI */
+    }
+  
+    .chart-container {
+        min-height: 250px; /* Reduz altura mínima dos gráficos */
+    }
+  }
+  
+  /* Telas extra pequenas (abaixo de 576px) */
+  @media (max-width: 575.98px) {
+     .report-card {
+        padding: 1rem;
+     }
+     .report-card h4 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+     }
+     .kpi-summary-grid {
+       /* Garante pelo menos 2 colunas se possível */
+       grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+       gap: 1rem;
+     }
+     .kpi-summary-item span {
+        font-size: 0.7rem;
+     }
+     .kpi-summary-item strong {
+        font-size: 1.6rem;
+     }
+  }

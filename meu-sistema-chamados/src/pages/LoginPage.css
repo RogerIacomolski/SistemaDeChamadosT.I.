@@ -1,0 +1,178 @@
+/* src/pages/LoginPage.css */
+
+.login-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* ** NOVO: Fundo com gradiente suave ** */
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); 
+  }
+  
+  .login-card {
+    background-color: #ffffff;
+    padding: 2rem; /* Mais padding */
+    border-radius: 20px; /* Bordas mais arredondadas */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+    width: 90%;
+    max-width: 420px; /* Ligeiramente mais largo */
+    text-align: center;
+  }
+  
+  /* Estilo para o ícone/logo (já definido inline, mas podemos adicionar mais) */
+  /* .login-logo { margin-bottom: 1rem; } */
+  
+  .login-card h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem; /* Menos espaço abaixo do título */
+    color: #1a202c; /* Preto mais suave */
+    font-size: 2rem;
+    font-weight: 700; /* Mais bold */
+  }
+  
+  /* ** NOVO: Estilo para o subtítulo ** */
+  .login-subtitle {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: #718096; /* Cinza azulado */
+    font-size: 1rem;
+  }
+  
+  .login-form .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left; 
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Label mais forte */
+    color: #4a5568; 
+    font-size: 0.875rem; /* Ligeiramente menor */
+  }
+  
+  .login-form .form-input {
+    width: 100%;
+    padding: 0.9rem 1rem; /* Input ligeiramente maior */
+    border: 1px solid #e2e8f0; /* Borda mais suave */
+    border-radius: 8px; /* Mais arredondado */
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .login-form .form-input::placeholder { /* Estilo do placeholder */
+    color: #a0aec0;
+  }
+  
+  .login-form .form-input:focus {
+    outline: none;
+    border-color: #4c51bf; 
+    box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.15); /* Sombra de foco mais suave */
+  }
+  
+  /* ** NOVO: Estilo para "Lembrar-me" ** */
+  .remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Espaço abaixo da checkbox */
+    text-align: left;
+  }
+  .remember-me input[type="checkbox"] {
+    margin-right: 0.5rem;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .remember-me label {
+    margin-bottom: 0; /* Remove margem padrão da label */
+    font-size: 0.9rem;
+    color: #4a5568;
+    cursor: pointer;
+    user-select: none; /* Evita selecionar o texto da label */
+  }
+  
+  
+  .login-error {
+    color: #e53e3e; 
+    font-size: 0.875rem; /* Ligeiramente maior */
+    margin-top: -1rem; /* Mais perto do campo */
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 0.9rem 1rem; /* Botão ligeiramente maior */
+    background-color: #4c51bf; 
+    color: white;
+    border: none;
+    border-radius: 8px; /* Mais arredondado */
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    margin-top: 1rem; 
+    box-shadow: 0 4px 6px rgba(76, 81, 191, 0.2); /* Sombra no botão */
+  }
+  
+  .login-button:hover:not(:disabled) {
+    background-color: #434190; 
+    box-shadow: 0 6px 8px rgba(76, 81, 191, 0.3); /* Sombra mais forte no hover */
+  }
+  
+  .login-button:disabled {
+    background-color: #a0aec0; 
+    cursor: not-allowed;
+    box-shadow: none; /* Remove sombra quando desabilitado */
+  }
+  
+  /* Estilo de loading no botão (igual ao anterior) */
+  .login-button.loading { /* ... código ... */ }
+  @keyframes button-loading-spinner { /* ... código ... */ }
+  
+  
+  .register-link {
+    margin-top: 2rem; /* Mais espaço acima do link */
+    font-size: 0.9rem;
+    color: #718096; /* Cinza azulado */
+  }
+  
+  .register-link a {
+    color: #4c51bf;
+    font-weight: 600; /* Link mais forte */
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .register-link a:hover {
+    color: #3c366b; /* Roxo mais escuro */
+    text-decoration: underline;
+  }
+  
+  /* Copie as definições do loading aqui se as removeu */
+  .login-button.loading {
+    position: relative;
+    color: transparent; 
+  }
+  .login-button.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+  @keyframes button-loading-spinner {
+    from { transform: rotate(0turn); }
+    to { transform: rotate(1turn); }
+  }
+  
+
+ 

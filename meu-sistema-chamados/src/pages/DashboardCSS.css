@@ -1,0 +1,528 @@
+/* src/pages/Dashboard.css (CORES CORRIGIDAS E COMPLETO) */
+
+/* --- 1. Paleta de Cores e Variáveis --- */
+:root {
+  --cor-primaria: #4c51bf;
+  --cor-primaria-hover: #434190;
+  --cor-fundo: #f7f8fc;
+  --cor-fundo-sidebar: #ffffff;
+  --cor-fundo-content: #ffffff;
+  --cor-borda: #e4e7eb;
+  --cor-texto-principal: #1a202c;
+  --cor-texto-secundario: #5a6268;
+  --cor-texto-claro: #8a92a6;
+  --cor-texto-link: #4c51bf;
+  --cor-texto-link-hover: #3c4099;
+  --cor-texto-branco: #ffffff;
+
+  /* === CORREÇÃO DAS CORES DE STATUS === */
+  /* Aberto = Vermelho/Alerta */
+  --cor-status-aberto-texto: #e53e3e;     /* Vermelho Texto */
+  --cor-status-aberto-fundo: #fff0f0;     /* Vermelho Fundo Claro */
+  --cor-status-aberto-borda: #fdd8d8;     /* Vermelho Borda Clara */
+
+  /* Em Andamento = Laranja/Aviso */
+  --cor-status-andamento-texto: #c05621;  /* Laranja Texto (mais escuro) */
+  --cor-status-andamento-fundo: #fffaf0;  /* Laranja Fundo Claro */
+  --cor-status-andamento-borda: #fee9c7;  /* Laranja Borda Clara */
+  --cor-status-andamento-hover: #f6ad55;  /* Laranja Principal (btn-warning) */
+
+  /* Fechado = Verde/Sucesso */
+  --cor-status-fechado-texto: #38a169;    /* Verde Texto */
+  --cor-status-fechado-fundo: #f0fff4;    /* Verde Fundo Claro */
+  --cor-status-fechado-borda: #c6f6d5;    /* Verde Borda Clara */
+  /* === FIM DA CORREÇÃO === */
+
+  --sombra: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --raio-borda: 8px;
+  --largura-sidebar: 260px;
+}
+
+/* --- 2. Reset e Layout Principal --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: var(--largura-sidebar) 1fr;
+  grid-template-rows: 100vh;
+  grid-template-areas: "sidebar main";
+}
+
+/* --- 3. Sidebar (Navegação) --- */
+.dashboard-sidebar {
+  grid-area: sidebar;
+  background-color: var(--cor-fundo-sidebar);
+  border-right: 1px solid var(--cor-borda);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  /* Garante que a sidebar tenha scroll interno se necessário */
+  overflow-y: auto;
+  height: 100vh; /* Ocupa a altura toda */
+}
+
+.sidebar-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  padding-bottom: 1.5rem;
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--cor-borda);
+  border-bottom: 1px solid var(--cor-borda);
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto-branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.user-info {
+    overflow: hidden; /* Evita que texto longo vaze */
+}
+.user-info strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-info span {
+  font-size: 0.8rem;
+  color: var(--cor-texto-claro);
+  text-transform: capitalize;
+}
+
+.sidebar-nav {
+  margin-top: 1.5rem;
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: var(--raio-borda);
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--cor-texto-secundario);
+  transition: all 0.2s ease;
+  white-space: nowrap; /* Evita quebra de linha */
+}
+.nav-link svg {
+  font-size: 1.2rem;
+  flex-shrink: 0; /* Ícone não encolhe */
+}
+
+.nav-link.active,
+.nav-link:hover {
+  background-color: #f0f2ff; /* Um roxo/azul bem claro */
+  color: var(--cor-primaria);
+}
+
+.sidebar-action {
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+  flex-shrink: 0; /* Não encolhe */
+}
+.sidebar-action .btn-primary {
+  width: 100%;
+  padding: 0.75rem 1rem;
+}
+
+.sidebar-filters {
+  margin-top: 1.5rem;
+  flex-shrink: 0; /* Não encolhe */
+}
+.sidebar-filters h4 {
+  font-size: 0.75rem;
+  color: var(--cor-texto-claro);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.filter-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.6rem 0.5rem;
+  border-radius: var(--raio-borda);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cor-texto-secundario);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover {
+  background-color: #f7f7f7;
+}
+.filter-btn.active {
+  background-color: #f0f2ff;
+  color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  margin-top: auto; /* Empurra para o fundo */
+  padding-top: 1rem; /* Adiciona espaço acima */
+  border-top: 1px solid var(--cor-borda); /* Linha divisória */
+  flex-shrink: 0; /* Não encolhe */
+}
+.logout-btn {
+  width: 100%;
+  color: var(--cor-status-aberto-texto); /* Usa a variável correta (vermelho) */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background-color: var(--cor-status-aberto-fundo); /* Fundo vermelho claro no hover */
+}
+
+/* --- 4. Conteúdo Principal --- */
+.dashboard-main-content {
+  grid-area: main;
+  overflow-y: auto; /* Permite scroll apenas no conteúdo */
+  padding: 2rem;
+  background-color: var(--cor-fundo);
+}
+
+.dashboard-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Quebra em telas menores */
+  gap: 1rem; /* Espaço entre título e botão */
+  margin-bottom: 1.5rem;
+}
+.dashboard-main-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--cor-texto-principal);
+}
+
+/* Botão Primário */
+.btn-primary {
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--raio-borda);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap; /* Evita quebra de linha no botão */
+}
+.btn-primary:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+/* --- 5. KPIs (Cartões de Estatística) --- */
+.kpi-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Mínimo maior */
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--cor-fundo-content);
+  border-radius: var(--raio-borda);
+  border: 1px solid var(--cor-borda);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  overflow: hidden; /* Evita que conteúdo vaze */
+}
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra);
+}
+
+.kpi-icon-wrapper {
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  flex-shrink: 0; /* Ícone não encolhe */
+}
+/* Cores dos ícones baseadas nas variáveis corrigidas */
+.kpi-card:nth-child(1) .kpi-icon-wrapper {
+  background-color: var(--cor-status-aberto-fundo);
+  color: var(--cor-status-aberto-texto);
+}
+.kpi-card:nth-child(2) .kpi-icon-wrapper {
+  background-color: var(--cor-status-andamento-fundo);
+  color: var(--cor-status-andamento-texto);
+}
+.kpi-card:nth-child(3) .kpi-icon-wrapper {
+  background-color: var(--cor-status-fechado-fundo);
+  color: var(--cor-status-fechado-texto);
+}
+
+.kpi-info {
+  flex-grow: 1;
+  overflow: hidden; /* Evita que texto longo vaze */
+}
+.kpi-title {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kpi-count {
+  display: block;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+}
+
+.kpi-arrow {
+  font-size: 1.25rem;
+  color: var(--cor-borda);
+  transition: all 0.2s ease;
+  margin-left: 0.5rem; /* Espaço antes da seta */
+}
+.kpi-card:hover .kpi-arrow {
+  color: var(--cor-primaria);
+}
+
+
+
+/* --- 8. Estilos dos Status Badges --- */
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Cores baseadas nas variáveis corrigidas */
+.status-aberto {
+  background-color: var(--cor-status-aberto-fundo);
+  color: var(--cor-status-aberto-texto);
+  border-color: var(--cor-status-aberto-borda);
+}
+.status-em_andamento {
+  background-color: var(--cor-status-andamento-fundo);
+  color: var(--cor-status-andamento-texto);
+  border-color: var(--cor-status-andamento-borda);
+}
+.status-fechado {
+  background-color: var(--cor-status-fechado-fundo);
+  color: var(--cor-status-fechado-texto);
+  border-color: var(--cor-status-fechado-borda);
+}
+
+/* --- 9. Estilos da Notificação --- */
+.notification-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--cor-status-aberto-texto); /* Usa a cor do texto aberto */
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: pulse 1.5s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(229, 62, 62, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
+}
+
+/* --- 10. Loading e Error Text --- */
+.loading-text, .error-text {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--cor-texto-secundario);
+}
+.error-text {
+  color: var(--cor-status-aberto-texto);
+}
+
+/* --- 11. RESPONSIVIDADE (Mobile) --- */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+    height: auto; /* Altura adapta ao conteúdo */
+    min-height: 100vh;
+  }
+
+  /* Sidebar vira menu off-canvas */
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: min(var(--largura-sidebar, 260px), 85vw); /* Limita largura máxima */
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 0 40px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    border-right: 1px solid var(--cor-borda); /* Mantém borda */
+  }
+  .dashboard-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close-btn {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--cor-texto-claro);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+   .sidebar-close-btn:hover {
+       background-color: rgba(0,0,0,0.05);
+       border-radius: 50%;
+   }
+
+
+  .sidebar-header {
+    display: block;
+    padding-top: 1rem;
+  }
+
+  .sidebar-footer {
+     display: block;
+     margin-top: 2rem;
+     padding-top: 1rem;
+     border-top: 1px solid var(--cor-borda);
+  }
+
+  .sidebar-user {
+     border-top: none;
+  }
+
+  .sidebar-nav { margin-top: 1rem; }
+  .sidebar-filters { margin-top: 1.5rem; }
+
+
+  /* Header Mobile */
+  .mobile-header {
+    display: flex;
+    grid-area: header;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--cor-fundo-sidebar);
+    border-bottom: 1px solid var(--cor-borda);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .mobile-header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
+  }
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--cor-texto-principal);
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+   .mobile-menu-btn:hover {
+       background-color: rgba(0,0,0,0.05);
+       border-radius: 6px;
+   }
+
+
+  /* Ajusta conteúdo principal */
+  .dashboard-main-content {
+    grid-area: main;
+    padding: 1rem; /* Menos padding */
+    overflow-y: visible; /* Remove scroll interno, deixa body scrollar */
+  }
+
+  .dashboard-main-header {
+    padding-top: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* KPIs em coluna única */
+  .kpi-card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  
+
+.app-footer p {
+  margin: 0; /* Remove margem padrão do parágrafo */
+  font-size: 0.85rem; /* Tamanho da fonte pequeno */
+  color: var(--cor-texto-claro, #9ca3af); /* Cor de texto sutil */
+  line-height: 1.4;
+  text-align: center; /* Centraliza o texto */
+  padding: 1.5rem 0 1rem 0; /* Espaçamento vertical, menos em baixo */
+  
+}
+
+}
